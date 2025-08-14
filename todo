@@ -1,7 +1,7 @@
-1. add commands
-- tgl add "things"
-- tgl list
-- tgl tick [id]
-- tgl rmv [id]
+/1. add commands
 
 2. Save to files
+- tgl add "things"(rw)
+- tgl list (r)
+- tgl tick [id] (rw)
+- tgl rmv [id](rw)
