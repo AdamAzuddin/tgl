@@ -3,10 +3,14 @@ package main
 import (
 	"fmt"
 	"os"
+
+	"github.com/AdamAzuddin/tgl/internal/todo"
 )
 
 func main() {
 	fmt.Println("Welcome to ToGoList")
+
+	todo.List()
 
 	if len(os.Args) < 2 {
 		showHelp()
