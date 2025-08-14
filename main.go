@@ -3,14 +3,13 @@ package main
 import (
 	"fmt"
 	"os"
+	"strconv"
 
 	"github.com/AdamAzuddin/tgl/internal/todo"
 )
 
 func main() {
-	fmt.Println("Welcome to ToGoList")
-
-	todo.List()
+	toDoList := todo.NewToDoList()
 
 	if len(os.Args) < 2 {
 		showHelp()
@@ -21,13 +20,14 @@ func main() {
 
 	switch command {
 	case "add":
-		handleAdd()
+		msg := os.Args[2]
+		handleAdd(toDoList, msg)
 	case "list":
-		handleList()
+		handleList(toDoList)
 	case "tick":
-		handleTick()
+		handleTick(toDoList)
 	case "rmv":
-		handleRmv()
+		handleRmv(toDoList)
 	case "help", "-h", "--help":
 		showHelp()
 
@@ -38,20 +38,48 @@ func main() {
 
 }
 
-func handleAdd() {
-	fmt.Println("Handle Add")
+func handleAdd(toDoList *todo.ToDoList, title string) {
+	task := todo.AddTask(toDoList, title)
+	fmt.Printf("%s added as a task with id %d\n", title, task.ID)
 }
 
-func handleList() {
+func handleList(t *todo.ToDoList) {
 	fmt.Println("Handle List")
+	for _, task := range t.Tasks{
+		fmt.Printf("%s		%d\n", task.Title, task.ID)
+	}
 }
 
-func handleTick() {
+func handleTick(t *todo.ToDoList) {
 	fmt.Println("Handle Tick")
+	id, err := strconv.Atoi(os.Args[2])
+	if err != nil {
+		fmt.Printf("Invalid id of %s\n", os.Args[2])
+		return
+	}
+
+	err = todo.TickTask(t, int(id))
+	if err != nil {
+		fmt.Printf("Error: %s\n", err)
+		return
+	}
+	fmt.Printf("Task with id %s removed successfully\n", os.Args[2])
 }
 
-func handleRmv() {
+func handleRmv(toDoList *todo.ToDoList) {
 	fmt.Println("Handle Remove")
+	id, err := strconv.Atoi(os.Args[2])
+	if err != nil {
+		fmt.Printf("Invalid id of %s\n", os.Args[2])
+		return
+	}
+
+	err = todo.RemoveTask(toDoList, int(id))
+	if err != nil {
+		fmt.Printf("Error: %s\n", err)
+		return
+	}
+	fmt.Printf("Task with id %s removed successfully\n", os.Args[2])
 }
 
 func showHelp() {
