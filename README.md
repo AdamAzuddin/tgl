@@ -14,70 +14,41 @@ A simple and efficient CLI todo list application built with Go.
 
 ```bash
 # Clone the repository
-git clone https://github.com/AdamAzuddin/ToGoList.git
-cd ToGoList
+git clone https://github.com/AdamAzuddin/tgl.git
+cd tgl
 
-# Build the application
-go build -o togolist main.go
+# Build and install the application
+go build && go install
 
-# Or run directly
-go run main.go
 ```
 
 ## Usage
 
 ```bash
 # Add a new task
-./togolist add "Buy groceries"
+tgl add "Buy groceries"
 
 # List all tasks
-./togolist list
+tgl list
 
 # Complete a task
-./togolist complete 1
+tgl tick 1
 
 # Delete a task
-./togolist delete 1
+tgl rmv 1
 
 # Show help
-./togolist help
+tgl help
 ```
 
 ## Project Structure
 
 ```
 ToGoList/
-├── cmd/                 # CLI commands
 ├── internal/            # Private application code
 │   ├── todo/           # Todo business logic
 │   └── storage/        # Data persistence
-├── pkg/                # Public packages
 ├── main.go             # Application entry point
 ├── go.mod              # Go module file
 └── README.md           # Project documentation
 ```
-
-## Development
-
-```bash
-# Run tests
-go test ./...
-
-# Format code
-go fmt ./...
-
-# Run linter
-golangci-lint run
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
